@@ -1,9 +1,8 @@
 const knex = require('knex')({
   client: 'postgresql',
   connection: {
-    // TODO use env var
-    user: 'postgres',
-    password: 'postgres'
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
   }
 });
 

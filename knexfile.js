@@ -5,9 +5,8 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'not_bitly_development',
-      // TODO use env var
-      user: 'postgres',
-      password: 'postgres'
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD
     },
     pool: {
       min: 2,
