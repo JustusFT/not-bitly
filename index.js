@@ -1,9 +1,10 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const port = 3000;
 
-// TODO use node_env
-const knexConfig = require('./knexfile')['development'];
+const knexConfig = require('./knexfile')[process.env.NODE_ENV];
 const knex = require('knex')(knexConfig);
 
 app.use(express.json());

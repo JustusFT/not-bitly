@@ -18,10 +18,7 @@ exports.up = function(knex) {
             END;
           $$ LANGUAGE plpgsql;
         `,
-        [
-          // TODO use env var
-          '7ReZakJpZ9Zmczvf'
-        ]
+        [process.env.HASHID_SALT]
       ).raw(`
         CREATE TRIGGER links_before_insert
         BEFORE INSERT ON links
