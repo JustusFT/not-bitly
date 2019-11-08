@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import './App.css';
+import ShortenerForm from './ShortenerForm';
 
 const SectionWrapper = styled.div`
   display: flex;
@@ -56,33 +57,6 @@ const Links = styled.div`
   }
 `;
 
-const ShortenerForm = styled.div`
-  display: flex;
-  padding: 32px 0;
-
-  > input {
-    height: 48px;
-    padding: 0 8px;
-    box-sizing: border-box;
-    border: 1px solid gray;
-    border-radius: 4px;
-
-    flex: 1;
-  }
-
-  > button {
-    height: 48px;
-    padding: 0 32px;
-    box-sizing: border-box;
-    border: none;
-    border-radius: 4px;
-
-    background-color: dodgerblue;
-    color: white;
-    margin-left: 16px;
-  }
-`;
-
 function App() {
   return (
     <Container>
@@ -103,10 +77,7 @@ function App() {
           </Header>
         </SectionWrapper>
         <SectionWrapper background="darkgray">
-          <ShortenerForm>
-            <input type="text" placeholder="Shorten your link"></input>
-            <button>Shorten</button>
-          </ShortenerForm>
+          <ShortenerForm />
         </SectionWrapper>
       </Content>
       <SectionWrapper>
