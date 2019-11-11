@@ -2,15 +2,22 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
-const port = 3001;
+const port = 3000;
 
 const knexConfig = require('./knexfile')[process.env.NODE_ENV];
 const knex = require('knex')(knexConfig);
 
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config.js');
+const middleware = require('webpack-dev-middleware');
+const compiler = webpack(webpackConfig);
+
+app.use(middleware(compiler));
 app.use(express.json());
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send();
 });
 
 app.post('/url', async (req, res) => {
