@@ -77,7 +77,7 @@ export default function ShortenerForm() {
 
     if (response.ok) {
       const json = await response.json();
-      setLinks([...links, json]);
+      setLinks([json, ...links]);
     } else {
       // TODO handle error
     }
@@ -101,7 +101,9 @@ export default function ShortenerForm() {
               <LinkItem>
                 <div>{link.original_url}</div>
                 <FlexGrow />
-                <div>{link.hashid}</div>
+                <div>
+                  {window.location.host}/{link.hashid}
+                </div>
                 <CopyButton>Copy</CopyButton>
               </LinkItem>
             </LinkItemWrapper>

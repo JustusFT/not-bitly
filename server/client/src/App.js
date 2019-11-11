@@ -42,7 +42,7 @@ const Footer = styled.footer`
 `;
 
 const Logo = styled.div`
-  font-family: Pacifico;
+  font-family: Pacifico, sans-serif;
   font-size: 32px;
   color: #ee6123;
 `;
