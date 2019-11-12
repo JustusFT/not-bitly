@@ -4,17 +4,24 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development nodemon index.js"
+    "start": "NODE_ENV=development nodemon index.js",
+    "migrate:latest": "dotenv knex migrate:latest",
+    "migrate:rollback": "dotenv knex migrate:rollback"
   },
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "core-js": "3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "knex": "^0.20.1",
     "normalize.css": "^8.0.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.12.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
     "regenerator-runtime": "^0.13.3",
     "styled-components": "^4.4.1"
   },
@@ -24,6 +31,7 @@
     "@babel/preset-react": "^7.7.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
+    "dotenv-cli": "^3.0.0",
     "nodemon": "^1.19.4",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",

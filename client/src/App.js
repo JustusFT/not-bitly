@@ -1,97 +1,41 @@
-import React from 'react';
-import styled from 'styled-components';
-import './App.css';
-import ShortenerForm from './ShortenerForm';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import Dashboard from "./Dashboard";
+import Home from "./Home";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 
-const SectionWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  background: ${props => props.background || 'none'};
-  padding: 0 16px;
+export default function App() {
+  const [user, setUser] = useState(null);
+  const [loaded, setLoaded] = useState(false);
 
-  > * {
-    width: 100%;
-    max-width: 960px;
-  }
-`;
+  useEffect(() => {
+    fetch("/api/auth/self")
+      .then(response => response.json())
+      .then(json => {
+        setUser(json.user);
+        setLoaded(true);
+      });
+  }, []);
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
-const Navbar = styled.nav`
-  display: flex;
-  align-items: center;
-  height: 64px;
-`;
-
-const Header = styled.header`
-  height: 200px;
-`;
-
-const Content = styled.main`
-  flex: 1;
-`;
-
-const Footer = styled.footer`
-  display: flex;
-  align-items: center;
-  height: 64px;
-`;
-
-const Logo = styled.div`
-  font-family: Pacifico, sans-serif;
-  font-size: 32px;
-  color: #ee6123;
-`;
-
-const FlexGrow = styled.div`
-  flex: 1;
-`;
-
-const Links = styled.div`
-  > a {
-    margin-left: 16px;
-  }
-`;
-
-function App() {
-  return (
-    <Container>
-      <SectionWrapper>
-        <Navbar>
-          <Logo>not bitly</Logo>
-          <FlexGrow />
-          <Links>
-            <a href="/log-in">Log in</a>
-            <a href="/sign-up">Sign up</a>
-          </Links>
-        </Navbar>
-      </SectionWrapper>
-      <Content>
-        <SectionWrapper>
-          <Header>
-            <h1>A URL shortener.</h1>
-          </Header>
-        </SectionWrapper>
-        <SectionWrapper background="darkgray">
-          <ShortenerForm />
-        </SectionWrapper>
-      </Content>
-      <SectionWrapper>
-        <Footer>
-          <div>Made by JustusFT</div>
-          <FlexGrow />
-          <Links>
-            <a href="/">Source</a>
-            <a href="/">Github</a>
-          </Links>
-        </Footer>
-      </SectionWrapper>
-    </Container>
+  return loaded ? (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          {user ? <Redirect to="/dashboard" /> : <Home />}
+        </Route>
+        <Route exact path="/dashboard">
+          {!user ? <Redirect to="/" /> : <Dashboard />}
+        </Route>
+        <Route exact path="/sign-in">
+          {user ? <Redirect to="/dashboard" /> : <SignIn />}
+        </Route>
+        <Route exact path="/sign-up">
+          {user ? <Redirect to="/dashboard" /> : <SignUp />}
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  ) : (
+    "Loading app..."
   );
 }
-
-export default App;
