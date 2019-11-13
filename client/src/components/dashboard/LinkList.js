@@ -22,6 +22,11 @@ const LinkItem = styled.div`
   align-items: center;
 `;
 
+const ShortUrlText = styled.div`
+  font-size: 12px;
+  margin-top: 8px;
+`;
+
 export default function LinkList({ links }) {
   const { url } = useRouteMatch();
 
@@ -29,11 +34,14 @@ export default function LinkList({ links }) {
     <Container>
       {links.map(link => (
         <LinkItemWrapper>
-          <LinkItem>
-            <Link to={`${url}/${link.hashid}`}>{getShortUrl(link.hashid)}</Link>
-            <FlexGrow />
-            <div>{link.visits} visits</div>
-          </LinkItem>
+          <div>
+            <LinkItem>
+              <Link to={`${url}/${link.hashid}`}>{link.original_url}</Link>
+              <FlexGrow />
+              <div>{link.visits} visits</div>
+            </LinkItem>
+            <ShortUrlText>{getShortUrl(link.hashid)}</ShortUrlText>
+          </div>
         </LinkItemWrapper>
       ))}
     </Container>
