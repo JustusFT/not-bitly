@@ -1,7 +1,9 @@
 import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import styled from "styled-components";
-import linksApi from "./linksApi";
+import linksApi from "../util/api/linksApi";
+import getShortUrl from "../util/getShortUrl";
+import FlexGrow from "./common/FlexGrow";
 
 const FormContainer = styled(Form)`
   display: flex;
@@ -42,10 +44,6 @@ const LinkItemWrapper = styled.div`
 const LinkItem = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const FlexGrow = styled.div`
-  flex: 1;
 `;
 
 const LinksContainer = styled.div`
@@ -96,9 +94,7 @@ export default function ShortenerForm() {
               <LinkItem>
                 <div>{link.original_url}</div>
                 <FlexGrow />
-                <div>
-                  {window.location.host}/{link.hashid}
-                </div>
+                <div>{getShortUrl(link.hashid)}</div>
                 <CopyButton>Copy</CopyButton>
               </LinkItem>
             </LinkItemWrapper>

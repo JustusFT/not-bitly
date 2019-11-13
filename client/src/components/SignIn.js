@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AuthLayout from "./AuthLayout";
-import FormItem from "./FormItem";
+import FormItem from "./common/FormItem";
+import Spacer from "./common/Spacer";
 
 const Form = styled.form`
   input {
@@ -12,10 +13,6 @@ const Form = styled.form`
   > *:not(:first-child) {
     margin-top: 16px;
   }
-`;
-
-const Spacer = styled.div`
-  height: 16px;
 `;
 
 export default function SignIn() {

@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import SectionWrapper from "./SectionWrapper";
+import FlexGrow from "./common/FlexGrow";
+import SectionWrapper from "./common/SectionWrapper";
 
 const Container = styled.nav`
   display: flex;
@@ -14,10 +15,6 @@ const Logo = styled(Link)`
   font-size: 32px;
   color: #ee6123;
   text-decoration: none;
-`;
-
-const FlexGrow = styled.div`
-  flex: 1;
 `;
 
 const Links = styled.div`

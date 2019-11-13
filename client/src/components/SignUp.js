@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import AuthLayout from "./AuthLayout";
-import FormItem from "./FormItem";
+import FormItem from "./common/FormItem";
 
 const Form = styled.form`
   input {
