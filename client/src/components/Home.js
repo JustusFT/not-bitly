@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import FlexGrow from "./common/FlexGrow";
 import Navbar from "./Navbar";
-import SectionWrapper from "./SectionWrapper";
+import SectionWrapper from "./common/SectionWrapper";
 import ShortenerForm from "./ShortenerForm";
 
 const Container = styled.div`
@@ -22,10 +23,6 @@ const Footer = styled.footer`
   display: flex;
   align-items: center;
   height: 64px;
-`;
-
-const FlexGrow = styled.div`
-  flex: 1;
 `;
 
 const Links = styled.div`
