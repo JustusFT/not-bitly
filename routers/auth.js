@@ -1,15 +1,16 @@
 const express = require("express");
-const passport = require("../../passport");
+const R = require("ramda");
+const passport = require("../passport");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const knexConfig = require("../../knexfile")[process.env.NODE_ENV];
+const knexConfig = require("../knexfile")[process.env.NODE_ENV];
 const knex = require("knex")(knexConfig);
 
 const router = express.Router();
 
 router.get("/self", (req, res) => {
-  res.send({ user: req.user || null });
+  res.send({ user: req.user ? R.pick(["email"], req.user) : null });
 });
 
 router.post("/sign-up", async (req, res) => {

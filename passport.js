@@ -31,7 +31,7 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser(async (id, cb) => {
   try {
     const [user] = await knex
-      .select("email")
+      .select("*")
       .from("users")
       .where({ id })
       .limit(1);
