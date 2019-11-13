@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import { Field, Form, Formik } from "formik";
+import React, { useState } from "react";
+import styled from "styled-components";
+import linksApi from "./linksApi";
 
-const FormContainer = styled.div`
+const FormContainer = styled(Form)`
   display: flex;
   margin: 32px 0;
 
@@ -30,7 +32,7 @@ const FormContainer = styled.div`
 
 const LinkItemWrapper = styled.div`
   &:not(:last-child)::after {
-    content: '';
+    content: "";
     display: block;
     border-bottom: 1px solid lightgray;
     margin: 16px;
@@ -59,21 +61,9 @@ const CopyButton = styled.button`
 
 export default function ShortenerForm() {
   const [links, setLinks] = useState([]);
-  const [value, setValue] = useState('');
 
   async function submitUrl(url) {
-    // prepend an http:// if not provided
-    if (!/$https?:\/\//.test(url)) {
-      url = `http://${url}`;
-    }
-
-    const response = await fetch(`/url`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ url })
-    });
+    const response = await linksApi.create(url);
 
     if (response.ok) {
       const json = await response.json();
@@ -85,19 +75,24 @@ export default function ShortenerForm() {
 
   return (
     <div>
-      <FormContainer>
-        <input
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          type="text"
-          placeholder="Shorten your link"
-        ></input>
-        <button onClick={() => submitUrl(value)}>Shorten</button>
-      </FormContainer>
+      <Formik
+        initialValues={{
+          url: ""
+        }}
+        onSubmit={values => {
+          submitUrl(values.url);
+        }}
+        render={() => (
+          <FormContainer>
+            <Field name="url" type="text" placeholder="Shorten your link" />
+            <button type="submit">Shorten</button>
+          </FormContainer>
+        )}
+      />
       {links.length > 0 && (
         <LinksContainer>
           {links.map(link => (
-            <LinkItemWrapper>
+            <LinkItemWrapper key={link.hashid}>
               <LinkItem>
                 <div>{link.original_url}</div>
                 <FlexGrow />
