@@ -33,8 +33,8 @@ export default function Navbar() {
         <Logo to="/">not bitly</Logo>
         <FlexGrow />
         <Links>
-          <Link to="/sign-in">Log in</Link>
-          <Link to="/sign-up">Sign up</Link>
+          <Link to="/a/sign-in">Log in</Link>
+          <Link to="/a/sign-up">Sign up</Link>
         </Links>
       </Container>
     </SectionWrapper>
