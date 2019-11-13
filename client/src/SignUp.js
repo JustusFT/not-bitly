@@ -7,6 +7,7 @@ export default function SignUp() {
       <form method="POST" action="/api/auth/sign-up">
         <input type="text" name="email" />
         <input type="password" name="password" />
+        <input type="password" name="passwordConfirmation" />
         <input type="submit" value="Submit" />
       </form>
     </div>
