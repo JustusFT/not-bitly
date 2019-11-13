@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import getShortUrl from "../../util/getShortUrl";
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import getShortUrl from '../../util/getShortUrl';
+import { LinksContext } from './Dashboard';
+import VisitGraph from './VisitGraph';
 
 export default function LinkInfo() {
   const { hashid } = useParams();
   const [loading, setLoading] = useState(true);
   const [visits, setVisits] = useState([]);
+  const linksContext = useContext(LinksContext);
+
+  const currentLink = linksContext.find(link => link.hashid === hashid);
 
   useEffect(() => {
     setLoading(true);
@@ -18,18 +23,19 @@ export default function LinkInfo() {
   }, [hashid]);
 
   return loading ? (
-    "Loading..."
+    'Loading...'
   ) : (
     <div>
-      <div>URL: [url...]</div>
+      <div>URL: {currentLink.original_url}</div>
       <div>
         <a href={getShortUrl(hashid)} target="_blank">
           Visit page
         </a>
       </div>
       <div>{visits.length} total visits</div>
-      <div>(insert some sort of graph to see visits over time)</div>
-      {JSON.stringify(visits)}
+      <div>
+        <VisitGraph visits={visits} />
+      </div>
     </div>
   );
 }

@@ -27,7 +27,9 @@ const LeftSide = styled.div`
 `;
 
 const RightSide = styled.div`
+  flex: 1;
   padding: 16px;
+  overflow-x: hidden;
 `;
 
 const LinkListContainer = styled.div`
@@ -44,55 +46,65 @@ const UrlForm = styled(Form)`
   }
 `;
 
+export const LinksContext = React.createContext([]);
+
 export default function Dashboard() {
   const { path } = useRouteMatch();
+  const [loading, setLoading] = useState(true);
   const [links, setLinks] = useState([]);
 
   useEffect(() => {
     fetch("/api/links")
       .then(response => response.json())
-      .then(json => setLinks(json));
+      .then(json => {
+        setLoading(false);
+        setLinks(json);
+      });
   }, []);
 
-  return (
-    <Container>
-      <Navbar />
-      <Content>
-        <LeftSide>
-          <Formik
-            initialValues={{
-              url: ""
-            }}
-            onSubmit={async values => {
-              const response = await linksApi.create(values.url);
+  return loading ? (
+    "Loading..."
+  ) : (
+    <LinksContext.Provider value={links}>
+      <Container>
+        <Navbar />
+        <Content>
+          <LeftSide>
+            <Formik
+              initialValues={{
+                url: ""
+              }}
+              onSubmit={async values => {
+                const response = await linksApi.create(values.url);
 
-              if (response.ok) {
-                const json = await response.json();
-                setLinks([json, ...links]);
-              } else {
-                // TODO handle error
-              }
-            }}
-            render={() => (
-              <UrlForm>
-                <Field name="url" type="text" />
-                <button type="submit">Shorten</button>
-              </UrlForm>
-            )}
-          />
-          <LinkListContainer>
-            <LinkList links={links} />
-          </LinkListContainer>
-        </LeftSide>
-        <RightSide>
-          <Switch>
-            <Route path={`${path}/:hashid`}>
-              <LinkInfo />
-            </Route>
-            <Route path={`${path}`}>Select a link above</Route>
-          </Switch>
-        </RightSide>
-      </Content>
-    </Container>
+                if (response.ok) {
+                  const json = await response.json();
+                  setLinks([json, ...links]);
+                } else {
+                  // TODO handle error
+                }
+              }}
+              render={() => (
+                <UrlForm>
+                  <Field name="url" type="text" />
+                  <button type="submit">Shorten</button>
+                </UrlForm>
+              )}
+            />
+            <LinkListContainer>
+              <LinkList links={links} />
+            </LinkListContainer>
+          </LeftSide>
+          <RightSide>
+            <Switch>
+              <Route path={`${path}/:hashid`}>
+                <LinkInfo />
+              </Route>
+              <Route path={`${path}`}>Select a link above</Route>
+            </Switch>
+          </RightSide>
+        </Content>
+      </Container>
+    </LinksContext.Provider>
   );
 }

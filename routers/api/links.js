@@ -63,7 +63,8 @@ router.get(
       .from("visits")
       .where({
         link_id: req.link.id
-      });
+      })
+      .orderBy("created_at");
 
     res.send(visits);
   }
