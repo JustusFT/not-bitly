@@ -1,10 +1,10 @@
 const express = require("express");
 const R = require("ramda");
-const passport = require("../passport");
+const passport = require("../../passport");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const knexConfig = require("../knexfile")[process.env.NODE_ENV];
+const knexConfig = require("../../knexfile")[process.env.NODE_ENV];
 const knex = require("knex")(knexConfig);
 
 const router = express.Router();
