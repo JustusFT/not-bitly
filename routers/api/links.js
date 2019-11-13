@@ -1,5 +1,5 @@
 const express = require("express");
-const knexConfig = require("../knexfile")[process.env.NODE_ENV];
+const knexConfig = require("../../knexfile")[process.env.NODE_ENV];
 const knex = require("knex")(knexConfig);
 
 const router = express.Router();
@@ -21,11 +21,13 @@ const visibleColumns = ["original_url", "hashid"];
 router.get("/", forbidUnauthenticated, async (req, res) => {
   try {
     const result = await knex
-      .select(visibleColumns)
+      .select([...visibleColumns, knex.raw("COUNT(visits.id) as visits")])
       .from("links")
+      .leftOuterJoin("visits", "links.id", "visits.link_id")
       .where({
         user_id: req.user.id
-      });
+      })
+      .groupBy("links.id");
     res.send(result);
   } catch (err) {
     console.error(err);
