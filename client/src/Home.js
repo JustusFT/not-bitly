@@ -1,31 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import "./Home.css";
+import Navbar from "./Navbar";
+import SectionWrapper from "./SectionWrapper";
 import ShortenerForm from "./ShortenerForm";
-
-const SectionWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  background: ${props => props.background || "none"};
-  padding: 0 16px;
-
-  > * {
-    width: 100%;
-    max-width: 960px;
-  }
-`;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-`;
-
-const Navbar = styled.nav`
-  display: flex;
-  align-items: center;
-  height: 64px;
 `;
 
 const Header = styled.header`
@@ -42,12 +24,6 @@ const Footer = styled.footer`
   height: 64px;
 `;
 
-const Logo = styled.div`
-  font-family: Pacifico, sans-serif;
-  font-size: 32px;
-  color: #ee6123;
-`;
-
 const FlexGrow = styled.div`
   flex: 1;
 `;
@@ -61,16 +37,7 @@ const Links = styled.div`
 function Home() {
   return (
     <Container>
-      <SectionWrapper>
-        <Navbar>
-          <Logo>not bitly</Logo>
-          <FlexGrow />
-          <Links>
-            <Link to="/sign-in">Log in</Link>
-            <Link to="/sign-up">Sign up</Link>
-          </Links>
-        </Navbar>
-      </SectionWrapper>
+      <Navbar />
       <Content>
         <SectionWrapper>
           <Header>
