@@ -1,0 +1,10 @@
+body {
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  min-width: 320px;
+}
+
+input {
+  box-sizing: border-box;
+  padding: 8px;
+}
