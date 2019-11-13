@@ -1,7 +1,9 @@
+import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import { Formik, Form, Field } from "formik";
+import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
-import linksApi from "./linksApi";
+import linksApi from "../linksApi";
+import LinkInfo from "./LinkInfo";
 
 const Container = styled.div`
   display: flex;
@@ -17,6 +19,7 @@ const Content = styled.main`
 `;
 
 export default function Dashboard() {
+  const { path, url } = useRouteMatch();
   const [links, setLinks] = useState([]);
 
   useEffect(() => {
@@ -56,10 +59,19 @@ export default function Dashboard() {
         />
         <div>
           {links.map(link => (
-            <div>{JSON.stringify(link)}</div>
+            <div>
+              <div>{link.hashid}</div>
+              <Link to={`${url}/${link.hashid}`}>Link</Link>
+            </div>
           ))}
         </div>
       </Content>
+      <Switch>
+        <Route path={`${path}/:hashid`}>
+          <LinkInfo />
+        </Route>
+        <Route path={`${path}`}>Select a link above</Route>
+      </Switch>
     </Container>
   );
 }

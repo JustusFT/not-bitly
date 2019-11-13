@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Dashboard from "./Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 import Home from "./Home";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -23,16 +23,16 @@ export default function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          {user ? <Redirect to="/dashboard" /> : <Home />}
+          {user ? <Redirect to="/a/dashboard" /> : <Home />}
         </Route>
-        <Route exact path="/dashboard">
+        <Route path="/a/dashboard">
           {!user ? <Redirect to="/" /> : <Dashboard />}
         </Route>
-        <Route exact path="/sign-in">
-          {user ? <Redirect to="/dashboard" /> : <SignIn />}
+        <Route exact path="/a/sign-in">
+          {user ? <Redirect to="/a/dashboard" /> : <SignIn />}
         </Route>
-        <Route exact path="/sign-up">
-          {user ? <Redirect to="/dashboard" /> : <SignUp />}
+        <Route exact path="/a/sign-up">
+          {user ? <Redirect to="/a/dashboard" /> : <SignUp />}
         </Route>
       </Switch>
     </BrowserRouter>

@@ -16,6 +16,24 @@ function forbidUnauthenticated(req, res, next) {
   next();
 }
 
+async function forbidNonOwnersOfLink(req, res, next) {
+  const [link] = await knex
+    .select("*")
+    .from("links")
+    .where({
+      hashid: req.params.hashid
+    })
+    .limit(1);
+
+  if (link && link.user_id === req.user.id) {
+    req.link = link;
+    next();
+    return;
+  }
+
+  res.sendStatus(403);
+}
+
 const visibleColumns = ["original_url", "hashid"];
 
 router.get("/", forbidUnauthenticated, async (req, res) => {
@@ -34,6 +52,22 @@ router.get("/", forbidUnauthenticated, async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+router.get(
+  "/:hashid/visits",
+  forbidUnauthenticated,
+  forbidNonOwnersOfLink,
+  async (req, res) => {
+    const visits = await knex
+      .select(["created_at"])
+      .from("visits")
+      .where({
+        link_id: req.link.id
+      });
+
+    res.send(visits);
+  }
+);
 
 router.post("/", async (req, res) => {
   // validate the url

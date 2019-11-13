@@ -8,7 +8,9 @@ const router = express.Router();
 
 router.use("/api", apiRouter);
 
-router.get("/((sign-in)|(sign-up)|(dashboard))?", (req, res) => {
+// match /, /a, and /a/{and any subroutes}
+// so any route prefixed with /a/ means it should send the SPA
+router.get(/^\/(a(\/.*)?)?$/, (req, res) => {
   res.sendFile(path.resolve(__dirname, "./index.html"));
 });
 
