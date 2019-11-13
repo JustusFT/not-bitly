@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development nodemon index.js",
+    "start": "NODE_ENV=development nodemon --ignore ./client index.js",
     "migrate:latest": "dotenv knex migrate:latest",
     "migrate:rollback": "dotenv knex migrate:rollback"
   },

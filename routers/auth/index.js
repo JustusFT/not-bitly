@@ -18,6 +18,13 @@ router.post("/sign-up", async (req, res) => {
     res.status(422).send({ error: "password must be 8 characters or longer" });
   }
 
+  // validate password confirmation
+  if (req.body.password !== req.body.passwordConfirmation) {
+    res
+      .status(422)
+      .send({ error: "password confirmation does not match password" });
+  }
+
   // validate email
   const [userExists] = await knex("users").where({
     email: req.body.email
