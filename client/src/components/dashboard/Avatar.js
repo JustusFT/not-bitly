@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Img = styled.img`
   width: 48px;
@@ -7,10 +7,10 @@ const Img = styled.img`
   border-radius: 100%;
 `;
 
-export default function Avatar() {
+export default function Avatar({ id }) {
   return (
     <Img
-      src="https://api.adorable.io/avatars/48/image.png"
+      src={`https://api.adorable.io/avatars/48/${id}.png`}
       alt="profile picture"
     />
   );

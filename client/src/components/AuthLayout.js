@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import Navbar from "./Navbar";
+import React from 'react';
+import styled from 'styled-components';
+import Navbar from './Navbar';
 
 const Container = styled.div`
   display: flex;
@@ -17,6 +17,7 @@ const ContentWrapper = styled.div`
 
 const Content = styled.div`
   width: 320px;
+  margin-bottom: 64px;
 `;
 
 export default function AuthLayout({ children }) {

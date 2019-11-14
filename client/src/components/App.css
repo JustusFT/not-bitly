@@ -1,10 +1,14 @@
 body {
   font-size: 16px;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   min-width: 320px;
+  color: #222222;
 }
 
-input {
-  box-sizing: border-box;
-  padding: 8px;
+a {
+  color: hsla(215, 100%, 60%, 1);
+}
+
+a:hover {
+  color: hsla(215, 100%, 75%, 1);
 }

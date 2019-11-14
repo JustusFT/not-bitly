@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import FlexGrow from "./common/FlexGrow";
-import Navbar from "./Navbar";
-import SectionWrapper from "./common/SectionWrapper";
-import ShortenerForm from "./ShortenerForm";
+import React from 'react';
+import styled from 'styled-components';
+import FlexGrow from '../common/FlexGrow';
+import Navbar from '../Navbar';
+import SectionWrapper from '../common/SectionWrapper';
+import ShortenerForm from './ShortenerForm';
 
 const Container = styled.div`
   display: flex;

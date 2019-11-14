@@ -1,8 +1,8 @@
-import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
-import styled from "styled-components";
-import getShortUrl from "../../util/getShortUrl";
-import FlexGrow from "../common/FlexGrow";
+import React from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
+import styled from 'styled-components';
+import getShortUrl from '../../util/getShortUrl';
+import FlexGrow from '../common/FlexGrow';
 
 const Container = styled.div`
   padding: 16px;
@@ -10,9 +10,9 @@ const Container = styled.div`
 
 const LinkItemWrapper = styled.div`
   &:not(:last-child)::after {
-    content: "";
+    content: '';
     display: block;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid #ccc;
     margin: 16px;
   }
 `;
@@ -38,7 +38,7 @@ export default function LinkList({ links }) {
             <LinkItem>
               <Link to={`${url}/${link.hashid}`}>{link.original_url}</Link>
               <FlexGrow />
-              <div>{link.visits} visits</div>
+              <div>{link.visits || 0} visits</div>
             </LinkItem>
             <ShortUrlText>{getShortUrl(link.hashid)}</ShortUrlText>
           </div>
