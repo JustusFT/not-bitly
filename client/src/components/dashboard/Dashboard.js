@@ -1,11 +1,13 @@
-import { Field, Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
-import styled from "styled-components";
-import linksApi from "../../util/api/linksApi";
-import LinkInfo from "./LinkInfo";
-import LinkList from "./LinkList";
-import Navbar from "./Navbar";
+import { Form, Formik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import styled from 'styled-components';
+import linksApi from '../../util/api/linksApi';
+import Button from '../common/Button';
+import Input from '../common/Input';
+import LinkInfo from './LinkInfo';
+import LinkList from './LinkList';
+import Navbar from './Navbar';
 
 const Container = styled.div`
   display: flex;
@@ -23,7 +25,7 @@ const LeftSide = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid gray;
+  border-right: 1px solid #ccc;
 `;
 
 const RightSide = styled.div`
@@ -41,8 +43,13 @@ const UrlForm = styled(Form)`
   padding: 16px;
   display: flex;
 
-  > input[name="url"] {
+  > input[type='text'] {
+    width: 100%;
     flex: 1;
+  }
+
+  > button {
+    margin-left: 16px;
   }
 `;
 
@@ -54,7 +61,7 @@ export default function Dashboard() {
   const [links, setLinks] = useState([]);
 
   useEffect(() => {
-    fetch("/api/links")
+    fetch('/api/links')
       .then(response => response.json())
       .then(json => {
         setLoading(false);
@@ -63,7 +70,7 @@ export default function Dashboard() {
   }, []);
 
   return loading ? (
-    "Loading..."
+    'Loading...'
   ) : (
     <LinksContext.Provider value={links}>
       <Container>
@@ -72,7 +79,7 @@ export default function Dashboard() {
           <LeftSide>
             <Formik
               initialValues={{
-                url: ""
+                url: ''
               }}
               onSubmit={async values => {
                 const response = await linksApi.create(values.url);
@@ -84,10 +91,10 @@ export default function Dashboard() {
                   // TODO handle error
                 }
               }}
-              render={() => (
+              render={({ handleChange }) => (
                 <UrlForm>
-                  <Field name="url" type="text" />
-                  <button type="submit">Shorten</button>
+                  <Input name="url" type="text" onChange={handleChange} />
+                  <Button type="submit">Shorten</Button>
                 </UrlForm>
               )}
             />

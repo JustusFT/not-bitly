@@ -1,15 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import AuthLayout from "./AuthLayout";
-import FormItem from "./common/FormItem";
-import Spacer from "./common/Spacer";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import AuthLayout from './AuthLayout';
+import Button from './common/Button';
+import FormItem from './common/FormItem';
+import Input from './common/Input';
+import Spacer from './common/Spacer';
 
 const Form = styled.form`
-  input {
-    width: 100%;
-  }
-
   > *:not(:first-child) {
     margin-top: 16px;
   }
@@ -21,12 +19,14 @@ export default function SignIn() {
       <h2>Sign in</h2>
       <Form method="POST" action="/api/auth/sign-in">
         <FormItem label="Email address">
-          <input type="text" name="email" />
+          <Input block type="text" name="email" />
         </FormItem>
         <FormItem label="Password">
-          <input type="password" name="password" />
+          <Input block type="password" name="password" />
         </FormItem>
-        <input type="submit" value="Submit" />
+        <Button block color="primary" type="submit">
+          Sign in
+        </Button>
       </Form>
       <Spacer />
       <div>

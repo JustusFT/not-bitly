@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import onClickOutside from "react-onclickoutside";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import onClickOutside from 'react-onclickoutside';
+import styled from 'styled-components';
 
 const Container = styled.div`
   position: relative;
@@ -8,8 +8,21 @@ const Container = styled.div`
 
 const MenuContainer = styled.div`
   position: absolute;
-  top: 0;
+  top: 32;
   right: 0;
+
+  ${props =>
+    props.visible
+      ? `
+        visibility: visible;
+        opacity: 1;
+      `
+      : `
+        visibility: hidden;
+        opacity: 0;
+      `}
+
+  transition: opacity 0.4s, visibility 0.4s;
 `;
 
 function PopMenu({ menu, children }) {
@@ -26,7 +39,7 @@ function PopMenu({ menu, children }) {
       >
         {children}
       </div>
-      <MenuContainer>{active && menu}</MenuContainer>
+      <MenuContainer visible={active}>{menu}</MenuContainer>
     </Container>
   );
 }

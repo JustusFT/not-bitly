@@ -1,13 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import AuthLayout from "./AuthLayout";
-import FormItem from "./common/FormItem";
+import React from 'react';
+import styled from 'styled-components';
+import AuthLayout from './AuthLayout';
+import Button from './common/Button';
+import FormItem from './common/FormItem';
+import Input from './common/Input';
 
 const Form = styled.form`
-  input {
-    width: 100%;
-  }
-
   > *:not(:first-child) {
     margin-top: 16px;
   }
@@ -19,15 +17,17 @@ export default function SignUp() {
       <h2>Create an account</h2>
       <Form method="POST" action="/api/auth/sign-up">
         <FormItem label="Email address">
-          <input type="text" name="email" />
+          <Input block type="text" name="email" />
         </FormItem>
         <FormItem label="Password">
-          <input type="password" name="password" />
+          <Input block type="password" name="password" />
         </FormItem>
         <FormItem label="Confirm Password">
-          <input type="password" name="passwordConfirmation" />
+          <Input block type="password" name="passwordConfirmation" />
         </FormItem>
-        <input type="submit" value="Sign up" />
+        <Button block color="primary" type="submit">
+          Sign up
+        </Button>
       </Form>
     </AuthLayout>
   );

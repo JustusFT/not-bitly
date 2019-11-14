@@ -1,40 +1,29 @@
-import { Field, Form, Formik } from "formik";
-import React, { useState } from "react";
-import styled from "styled-components";
-import linksApi from "../util/api/linksApi";
-import getShortUrl from "../util/getShortUrl";
-import FlexGrow from "./common/FlexGrow";
+import { Form, Formik } from 'formik';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import linksApi from '../../util/api/linksApi';
+import getShortUrl from '../../util/getShortUrl';
+import Button from '../common/Button';
+import FlexGrow from '../common/FlexGrow';
+import Input from '../common/Input';
 
 const FormContainer = styled(Form)`
   display: flex;
   margin: 32px 0;
 
   > input {
-    height: 48px;
-    padding: 0 8px;
-    box-sizing: border-box;
-    border: 1px solid gray;
-    border-radius: 4px;
-
     flex: 1;
   }
 
   > button {
-    height: 48px;
     padding: 0 32px;
-    box-sizing: border-box;
-    border: none;
-    border-radius: 4px;
-
-    background-color: dodgerblue;
-    color: white;
     margin-left: 16px;
   }
 `;
 
 const LinkItemWrapper = styled.div`
   &:not(:last-child)::after {
-    content: "";
+    content: '';
     display: block;
     border-bottom: 1px solid lightgray;
     margin: 16px;
@@ -53,7 +42,7 @@ const LinksContainer = styled.div`
   margin-bottom: 32px;
 `;
 
-const CopyButton = styled.button`
+const CopyButton = styled(Button)`
   margin-left: 16px;
 `;
 
@@ -75,18 +64,27 @@ export default function ShortenerForm() {
     <div>
       <Formik
         initialValues={{
-          url: ""
+          url: ''
         }}
         onSubmit={values => {
           submitUrl(values.url);
         }}
-        render={() => (
+      >
+        {({ handleChange }) => (
           <FormContainer>
-            <Field name="url" type="text" placeholder="Shorten your link" />
-            <button type="submit">Shorten</button>
+            <Input
+              large
+              name="url"
+              type="text"
+              placeholder="Shorten your link"
+              onChange={handleChange}
+            />
+            <Button large color="primary" type="submit">
+              Shorten
+            </Button>
           </FormContainer>
         )}
-      />
+      </Formik>
       {links.length > 0 && (
         <LinksContainer>
           {links.map(link => (

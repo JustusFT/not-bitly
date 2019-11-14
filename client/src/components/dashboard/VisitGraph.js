@@ -23,8 +23,8 @@ function generateData(visits) {
     datasets: [
       {
         label: 'Visits',
-        backgroundColor: 'hsla(172, 100%, 32%, 0.5)',
-        borderColor: 'hsla(172, 100%, 32%, 1)',
+        backgroundColor: 'hsla(215, 100%, 60%, 0.5)',
+        borderColor: 'hsla(215, 100%, 60%, 1)',
         data
       }
     ]

@@ -1,11 +1,15 @@
-import React from "react";
-import styled from "styled-components";
-import FlexGrow from "../common/FlexGrow";
-import Avatar from "./Avatar";
-import PopMenu from "./PopMenu";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { UserContext } from '../App';
+import Button from '../common/Button';
+import FlexGrow from '../common/FlexGrow';
+import Avatar from './Avatar';
+import PopMenu from './PopMenu';
+import Spacer from '../common/Spacer';
 
 const Wrapper = styled.div`
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 2px 2px 4px #ccc;
 `;
 
 const Container = styled.nav`
@@ -23,13 +27,22 @@ const Logo = styled.div`
 
 const Menu = styled.div`
   width: 200px;
-  border: 1px solid gray;
+  border: 1px solid #ccc;
   background-color: white;
   padding: 16px;
   box-sizing: border-box;
+  box-shadow: 2px 2px 8px #ccc;
+`;
+
+const EmailText = styled.div`
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 export default function Navbar() {
+  const userContext = useContext(UserContext);
+
   return (
     <Wrapper>
       <Container>
@@ -38,13 +51,17 @@ export default function Navbar() {
         <PopMenu
           menu={
             <Menu>
+              <EmailText>{userContext.email}</EmailText>
+              <Spacer />
               <form method="POST" action="/api/auth/sign-out">
-                <button type="submit">Sign out</button>
+                <Button block type="submit">
+                  Sign out
+                </Button>
               </form>
             </Menu>
           }
         >
-          <Avatar />
+          <Avatar id={userContext.email} />
         </PopMenu>
       </Container>
     </Wrapper>
