@@ -22,7 +22,7 @@ export default function App() {
   }, []);
 
   return loaded ? (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={{ user, setUser }}>
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
