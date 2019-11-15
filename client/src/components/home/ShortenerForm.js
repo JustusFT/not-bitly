@@ -40,6 +40,11 @@ const LinkItem = styled.div`
   align-items: center;
 `;
 
+const OriginalUrl = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 const LinksContainer = styled.div`
   background-color: white;
   border-radius: 4px;
@@ -101,8 +106,8 @@ export default function ShortenerForm() {
           {links.map(link => (
             <LinkItemWrapper key={link.hashid}>
               <LinkItem>
-                <div>{link.original_url}</div>
-                <FlexGrow />
+                <OriginalUrl>{link.original_url}</OriginalUrl>
+                <FlexGrow style={{ minWidth: 16 }} />
                 <div>{getShortUrl(link.hashid)}</div>
                 <CopyButtonContainer>
                   <CopyButton text={getShortUrl(link.hashid)} />

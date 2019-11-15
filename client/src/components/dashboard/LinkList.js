@@ -22,6 +22,12 @@ const LinkItemWrapper = styled.div`
 const LinkItem = styled.div`
   display: flex;
   align-items: center;
+  white-space: nowrap;
+
+  > a {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 const ShortUrlText = styled.div`
