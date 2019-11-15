@@ -86,7 +86,7 @@ export default function Dashboard() {
 
                 if (response.ok) {
                   const json = await response.json();
-                  setLinks([json, ...links]);
+                  setLinks([{ ...json, visits: 0 }, ...links]);
                 } else {
                   // TODO handle error
                 }

@@ -6,6 +6,7 @@ exports.up = function(knex) {
         table.text('original_url').notNullable();
         table.string('hashid', 255).notNullable();
         table.unique('hashid');
+        table.timestamps(true, true);
       })
       // Generate the hash id when inserting a new link
       .raw(`CREATE extension pg_hashids;`)
