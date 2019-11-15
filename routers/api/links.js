@@ -1,6 +1,6 @@
-const express = require("express");
-const knexConfig = require("../../knexfile")[process.env.NODE_ENV];
-const knex = require("knex")(knexConfig);
+const express = require('express');
+const knexConfig = require('../../knexfile')[process.env.NODE_ENV];
+const knex = require('knex')(knexConfig);
 
 const router = express.Router();
 
@@ -18,8 +18,8 @@ function forbidUnauthenticated(req, res, next) {
 
 async function forbidNonOwnersOfLink(req, res, next) {
   const [link] = await knex
-    .select("*")
-    .from("links")
+    .select('*')
+    .from('links')
     .where({
       hashid: req.params.hashid
     })
@@ -34,18 +34,18 @@ async function forbidNonOwnersOfLink(req, res, next) {
   res.sendStatus(403);
 }
 
-const visibleColumns = ["original_url", "hashid"];
+const visibleColumns = ['original_url', 'hashid', 'links.created_at'];
 
-router.get("/", forbidUnauthenticated, async (req, res) => {
+router.get('/', forbidUnauthenticated, async (req, res) => {
   try {
     const result = await knex
-      .select([...visibleColumns, knex.raw("COUNT(visits.id) as visits")])
-      .from("links")
-      .leftOuterJoin("visits", "links.id", "visits.link_id")
+      .select([...visibleColumns, knex.raw('COUNT(visits.id) as visits')])
+      .from('links')
+      .leftOuterJoin('visits', 'links.id', 'visits.link_id')
       .where({
         user_id: req.user.id
       })
-      .groupBy("links.id");
+      .groupBy('links.id');
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -54,33 +54,33 @@ router.get("/", forbidUnauthenticated, async (req, res) => {
 });
 
 router.get(
-  "/:hashid/visits",
+  '/:hashid/visits',
   forbidUnauthenticated,
   forbidNonOwnersOfLink,
   async (req, res) => {
     const visits = await knex
-      .select(["created_at"])
-      .from("visits")
+      .select(['created_at'])
+      .from('visits')
       .where({
         link_id: req.link.id
       })
-      .orderBy("created_at");
+      .orderBy('created_at');
 
     res.send(visits);
   }
 );
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   // validate the url
   if (isValidUrl(req.body.url)) {
     res.status(422).send({
-      url: "is not a valid"
+      url: 'is not a valid'
     });
     return;
   }
 
   try {
-    const [result] = await knex("links")
+    const [result] = await knex('links')
       .insert({
         original_url: req.body.url,
         user_id: req.user ? req.user.id : null
