@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import linksApi from '../../util/api/linksApi';
 import getShortUrl from '../../util/getShortUrl';
 import Button from '../common/Button';
+import CopyButton from '../common/CopyButton';
 import FlexGrow from '../common/FlexGrow';
 import Input from '../common/Input';
 
@@ -42,7 +43,7 @@ const LinksContainer = styled.div`
   margin-bottom: 32px;
 `;
 
-const CopyButton = styled(Button)`
+const CopyButtonContainer = styled.div`
   margin-left: 16px;
 `;
 
@@ -93,7 +94,9 @@ export default function ShortenerForm() {
                 <div>{link.original_url}</div>
                 <FlexGrow />
                 <div>{getShortUrl(link.hashid)}</div>
-                <CopyButton>Copy</CopyButton>
+                <CopyButtonContainer>
+                  <CopyButton text={getShortUrl(link.hashid)} />
+                </CopyButtonContainer>
               </LinkItem>
             </LinkItemWrapper>
           ))}

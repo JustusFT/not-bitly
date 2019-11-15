@@ -5,13 +5,31 @@ import { Line } from 'react-chartjs-2';
 
 var timeFormat = 'MM/DD/YYYY';
 
+// the visits must be sorted chronologically in order to use this function
 function generateData(visits) {
+  // Generate the basis. All dates from the first visit till today will begin with no visits
+  const basis = {};
+
+  if (visits[0]) {
+    const earliestDate = moment(visits[0].created_at).startOf('date');
+    for (
+      let date = moment(earliestDate);
+      !date.isSame(moment().add(1, 'days'), 'day');
+      date.add(1, 'days')
+    ) {
+      basis[date.format(timeFormat)] = [];
+    }
+  }
+
   const data = R.pipe(
     R.groupBy(visit =>
       moment(visit.created_at)
         .startOf('date')
         .format(timeFormat)
     ),
+    // merge dates with visits with the basis
+    R.mergeRight(basis),
+    // convert to chartjs point data format
     R.mapObjIndexed((value, key) => ({
       x: key,
       y: value.length
@@ -47,6 +65,9 @@ const options = {
         scaleLabel: {
           display: true,
           labelString: 'Date'
+        },
+        ticks: {
+          max: moment().format(timeFormat)
         }
       }
     ],

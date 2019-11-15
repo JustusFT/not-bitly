@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import getShortUrl from '../../util/getShortUrl';
-import Button from '../common/Button';
+import CopyButton from '../common/CopyButton';
 import Spacer from '../common/Spacer';
 import { LinksContext } from './Dashboard';
 import VisitGraph from './VisitGraph';
@@ -23,7 +23,7 @@ const StatKey = styled.div`
   justify-content: flex-end;
 `;
 
-const CopyButton = styled(Button)`
+const CopyButtonContainer = styled.div`
   margin-left: 16px;
 `;
 
@@ -55,7 +55,10 @@ export default function LinkInfo() {
 
         <StatKey>Shortened URL:</StatKey>
         <div>
-          {getShortUrl(hashid)} <CopyButton>Copy</CopyButton>
+          {getShortUrl(hashid)}{' '}
+          <CopyButtonContainer>
+            <CopyButton text={getShortUrl(hashid)} />
+          </CopyButtonContainer>
         </div>
 
         <StatKey>Total visits:</StatKey>
