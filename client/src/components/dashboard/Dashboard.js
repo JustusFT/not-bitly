@@ -107,7 +107,7 @@ export default function Dashboard() {
               <Route path={`${path}/:hashid`}>
                 <LinkInfo />
               </Route>
-              <Route path={`${path}`}>Select a link above</Route>
+              <Route path={`${path}`}>Select a link to view its stats.</Route>
             </Switch>
           </RightSide>
         </Content>
