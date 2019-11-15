@@ -74,7 +74,7 @@ router.post('/', async (req, res) => {
   // validate the url
   if (isValidUrl(req.body.url)) {
     res.status(422).send({
-      url: 'is not a valid'
+      url: 'URL is not valid'
     });
     return;
   }

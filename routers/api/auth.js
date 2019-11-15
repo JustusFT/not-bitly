@@ -8,21 +8,25 @@ const knex = require('knex')(knexConfig);
 
 const router = express.Router();
 
-router.get('/self', (req, res) => {
+const getSelf = (req, res, next) => {
   res.send({ user: req.user ? R.pick(['email'], req.user) : null });
-});
+  next();
+  return;
+};
+
+router.get('/self', getSelf);
 
 router.post('/sign-up', async (req, res) => {
+  const errors = {};
+
   // validate password
   if (!req.body.password || req.body.password.length < 8) {
-    res.status(422).send({ error: 'password must be 8 characters or longer' });
+    errors.password = 'must be at least 8 characters long';
   }
 
   // validate password confirmation
   if (req.body.password !== req.body.passwordConfirmation) {
-    res
-      .status(422)
-      .send({ error: 'password confirmation does not match password' });
+    errors.passwordConfirmation = 'does not match password';
   }
 
   // validate email
@@ -30,7 +34,15 @@ router.post('/sign-up', async (req, res) => {
     email: req.body.email
   });
   if (userExists) {
-    res.status(422).send({ error: 'email is already taken' });
+    errors.email = 'is already taken';
+  }
+
+  if (!/^.+@.+\..+$/.test(req.body.email)) {
+    errors.email = 'is not a valid email address';
+  }
+
+  if (!R.isEmpty(errors)) {
+    res.status(422).send({ errors });
   }
 
   await knex('users')
@@ -40,20 +52,20 @@ router.post('/sign-up', async (req, res) => {
     })
     .returning('email');
 
-  res.redirect('/');
+  res.redirect('/a/sign-in');
 });
+
+router.post('/sign-in', passport.authenticate('local'), getSelf);
 
 router.post(
-  '/sign-in',
-  passport.authenticate('local', { failureRedirect: '/a/sign-in' }),
-  async (req, res) => {
+  '/sign-out',
+  (req, res, next) => {
+    req.logout();
     res.redirect('/');
-  }
+    next();
+    return;
+  },
+  getSelf
 );
-
-router.post('/sign-out', (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
 
 module.exports = router;

@@ -1,9 +1,10 @@
-import { Form, Formik } from 'formik';
+import { ErrorMessage, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import linksApi from '../../util/api/linksApi';
 import Button from '../common/Button';
+import ErrorText from '../common/ErrorText';
 import Input from '../common/Input';
 import LinkInfo from './LinkInfo';
 import LinkList from './LinkList';
@@ -39,8 +40,11 @@ const LinkListContainer = styled.div`
   overflow-y: scroll;
 `;
 
-const UrlForm = styled(Form)`
+const UrlFormContainer = styled.div`
   padding: 16px;
+`;
+
+const UrlForm = styled(Form)`
   display: flex;
 
   > input[type='text'] {
@@ -81,21 +85,27 @@ export default function Dashboard() {
               initialValues={{
                 url: ''
               }}
-              onSubmit={async values => {
+              onSubmit={async (values, formikBag) => {
                 const response = await linksApi.create(values.url);
 
                 if (response.ok) {
                   const json = await response.json();
                   setLinks([{ ...json, visits: 0 }, ...links]);
+                } else if (response.status === 422) {
+                  const json = await response.json();
+                  formikBag.setErrors(json);
                 } else {
-                  // TODO handle error
+                  // server error
                 }
               }}
               render={({ handleChange }) => (
-                <UrlForm>
-                  <Input name="url" type="text" onChange={handleChange} />
-                  <Button type="submit">Shorten</Button>
-                </UrlForm>
+                <UrlFormContainer>
+                  <UrlForm>
+                    <Input name="url" type="text" onChange={handleChange} />
+                    <Button type="submit">Shorten</Button>
+                  </UrlForm>
+                  <ErrorMessage name="url" component={ErrorText} />
+                </UrlFormContainer>
               )}
             />
             <LinkListContainer>

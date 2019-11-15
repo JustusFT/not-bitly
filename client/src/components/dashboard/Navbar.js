@@ -51,7 +51,7 @@ export default function Navbar() {
         <PopMenu
           menu={
             <Menu>
-              <EmailText>{userContext.email}</EmailText>
+              <EmailText>{userContext.user.email}</EmailText>
               <Spacer />
               <form method="POST" action="/api/auth/sign-out">
                 <Button block type="submit">
@@ -61,7 +61,7 @@ export default function Navbar() {
             </Menu>
           }
         >
-          <Avatar id={userContext.email} />
+          <Avatar id={userContext.user.email} />
         </PopMenu>
       </Container>
     </Wrapper>

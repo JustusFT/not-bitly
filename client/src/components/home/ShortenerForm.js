@@ -1,16 +1,20 @@
-import { Form, Formik } from 'formik';
+import { ErrorMessage, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import linksApi from '../../util/api/linksApi';
 import getShortUrl from '../../util/getShortUrl';
 import Button from '../common/Button';
 import CopyButton from '../common/CopyButton';
+import ErrorText from '../common/ErrorText';
 import FlexGrow from '../common/FlexGrow';
 import Input from '../common/Input';
 
-const FormContainer = styled(Form)`
-  display: flex;
+const FormContainer = styled.div`
   margin: 32px 0;
+`;
+
+const LinkForm = styled(Form)`
+  display: flex;
 
   > input {
     flex: 1;
@@ -50,14 +54,17 @@ const CopyButtonContainer = styled.div`
 export default function ShortenerForm() {
   const [links, setLinks] = useState([]);
 
-  async function submitUrl(url) {
+  async function submitUrl(url, formikBag) {
     const response = await linksApi.create(url);
 
     if (response.ok) {
       const json = await response.json();
       setLinks([json, ...links]);
+    } else if (response.status === 422) {
+      const json = await response.json();
+      formikBag.setErrors(json);
     } else {
-      // TODO handle error
+      // server error
     }
   }
 
@@ -67,22 +74,25 @@ export default function ShortenerForm() {
         initialValues={{
           url: ''
         }}
-        onSubmit={values => {
-          submitUrl(values.url);
+        onSubmit={(values, formikBag) => {
+          submitUrl(values.url, formikBag);
         }}
       >
         {({ handleChange }) => (
           <FormContainer>
-            <Input
-              large
-              name="url"
-              type="text"
-              placeholder="Shorten your link"
-              onChange={handleChange}
-            />
-            <Button large color="primary" type="submit">
-              Shorten
-            </Button>
+            <LinkForm>
+              <Input
+                large
+                name="url"
+                type="text"
+                placeholder="Shorten your link"
+                onChange={handleChange}
+              />
+              <Button large color="primary" type="submit">
+                Shorten
+              </Button>
+            </LinkForm>
+            <ErrorMessage name="url" component={ErrorText} />
           </FormContainer>
         )}
       </Formik>
