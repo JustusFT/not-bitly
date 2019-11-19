@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import getShortUrl from '../../util/getShortUrl';
 import CopyButton from '../common/CopyButton';
 import Spacer from '../common/Spacer';
+import Spin from '../common/Spin';
 import { LinksContext } from './Dashboard';
 import VisitGraph from './VisitGraph';
 
@@ -27,6 +28,13 @@ const CopyButtonContainer = styled.div`
   margin-left: 16px;
 `;
 
+const SpinContainer = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default function LinkInfo() {
   const { hashid } = useParams();
   const [loading, setLoading] = useState(true);
@@ -46,7 +54,9 @@ export default function LinkInfo() {
   }, [hashid]);
 
   return loading ? (
-    'Loading...'
+    <SpinContainer>
+      <Spin />
+    </SpinContainer>
   ) : (
     <div>
       <Stats>

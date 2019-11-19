@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import getShortUrl from '../../util/getShortUrl';
 import FlexGrow from '../common/FlexGrow';
 import FormItem from '../common/FormItem';
-import Spacer from '../common/Spacer';
 
 const Container = styled.div`
-  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const LinkItemWrapper = styled.div`
@@ -35,33 +36,65 @@ const ShortUrlText = styled.div`
   margin-top: 8px;
 `;
 
+const LinksWrapper1 = styled.div`
+  flex: 1;
+  position: relative;
+`;
+
+const LinksWrapper2 = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+`;
+
+const Links = styled.div`
+  padding: 16px;
+`;
+
+const SorterWrapper = styled.div`
+  padding: 0 16px 16px 16px;
+  border-bottom: 1px solid #ccc;
+`;
+
 export default function LinkList({ links }) {
   const { url } = useRouteMatch();
   const [sort, setSort] = useState('visits');
 
   return (
     <Container>
-      <FormItem label="Sort by:">
-        <select value={sort} onChange={e => setSort(e.target.value)}>
-          <option value="visits">Total visits</option>
-          <option value="created_at">Date created</option>
-        </select>
-      </FormItem>
-      <Spacer />
-      {links
-        .sort((a, b) => a[sort] < b[sort])
-        .map(link => (
-          <LinkItemWrapper>
-            <div>
-              <LinkItem>
-                <Link to={`${url}/${link.hashid}`}>{link.original_url}</Link>
-                <FlexGrow />
-                <div>{link.visits} visits</div>
-              </LinkItem>
-              <ShortUrlText>{getShortUrl(link.hashid)}</ShortUrlText>
-            </div>
-          </LinkItemWrapper>
-        ))}
+      <SorterWrapper>
+        <FormItem label="Sort by:">
+          <select value={sort} onChange={e => setSort(e.target.value)}>
+            <option value="visits">Total visits</option>
+            <option value="created_at">Date created</option>
+          </select>
+        </FormItem>
+      </SorterWrapper>
+      <LinksWrapper1>
+        <LinksWrapper2>
+          <Links>
+            {links
+              .sort((a, b) => a[sort] < b[sort])
+              .map(link => (
+                <LinkItemWrapper>
+                  <div>
+                    <LinkItem>
+                      <Link to={`${url}/${link.hashid}`}>
+                        {link.original_url}
+                      </Link>
+                      <FlexGrow />
+                      <div>{link.visits} visits</div>
+                    </LinkItem>
+                    <ShortUrlText>{getShortUrl(link.hashid)}</ShortUrlText>
+                  </div>
+                </LinkItemWrapper>
+              ))}
+          </Links>
+        </LinksWrapper2>
+      </LinksWrapper1>
     </Container>
   );
 }
