@@ -6,6 +6,7 @@ import linksApi from '../../util/api/linksApi';
 import Button from '../common/Button';
 import ErrorText from '../common/ErrorText';
 import Input from '../common/Input';
+import Spin from '../common/Spin';
 import LinkInfo from './LinkInfo';
 import LinkList from './LinkList';
 import Navbar from './Navbar';
@@ -32,12 +33,10 @@ const LeftSide = styled.div`
 const RightSide = styled.div`
   flex: 1;
   padding: 16px;
-  overflow-x: hidden;
 `;
 
 const LinkListContainer = styled.div`
   flex: 1;
-  overflow-y: scroll;
 `;
 
 const UrlFormContainer = styled.div`
@@ -57,6 +56,12 @@ const UrlForm = styled(Form)`
   }
 `;
 
+const SpinContainer = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+`;
+
 export const LinksContext = React.createContext([]);
 
 export default function Dashboard() {
@@ -73,54 +78,58 @@ export default function Dashboard() {
       });
   }, []);
 
-  return loading ? (
-    'Loading...'
-  ) : (
+  return (
     <LinksContext.Provider value={links}>
       <Container>
         <Navbar />
-        <Content>
-          <LeftSide>
-            <Formik
-              initialValues={{
-                url: ''
-              }}
-              onSubmit={async (values, formikBag) => {
-                const response = await linksApi.create(values.url);
+        {loading ? (
+          <SpinContainer>
+            <Spin />
+          </SpinContainer>
+        ) : (
+          <Content>
+            <LeftSide>
+              <Formik
+                initialValues={{
+                  url: ''
+                }}
+                onSubmit={async (values, formikBag) => {
+                  const response = await linksApi.create(values.url);
 
-                if (response.ok) {
-                  const json = await response.json();
-                  setLinks([{ ...json, visits: 0 }, ...links]);
-                } else if (response.status === 422) {
-                  const json = await response.json();
-                  formikBag.setErrors(json);
-                } else {
-                  // server error
-                }
-              }}
-              render={({ handleChange }) => (
-                <UrlFormContainer>
-                  <UrlForm>
-                    <Input name="url" type="text" onChange={handleChange} />
-                    <Button type="submit">Shorten</Button>
-                  </UrlForm>
-                  <ErrorMessage name="url" component={ErrorText} />
-                </UrlFormContainer>
-              )}
-            />
-            <LinkListContainer>
-              <LinkList links={links} />
-            </LinkListContainer>
-          </LeftSide>
-          <RightSide>
-            <Switch>
-              <Route path={`${path}/:hashid`}>
-                <LinkInfo />
-              </Route>
-              <Route path={`${path}`}>Select a link to view its stats.</Route>
-            </Switch>
-          </RightSide>
-        </Content>
+                  if (response.ok) {
+                    const json = await response.json();
+                    setLinks([{ ...json, visits: 0 }, ...links]);
+                  } else if (response.status === 422) {
+                    const json = await response.json();
+                    formikBag.setErrors(json);
+                  } else {
+                    // server error
+                  }
+                }}
+                render={({ handleChange }) => (
+                  <UrlFormContainer>
+                    <UrlForm>
+                      <Input name="url" type="text" onChange={handleChange} />
+                      <Button type="submit">Shorten</Button>
+                    </UrlForm>
+                    <ErrorMessage name="url" component={ErrorText} />
+                  </UrlFormContainer>
+                )}
+              />
+              <LinkListContainer>
+                <LinkList links={links} />
+              </LinkListContainer>
+            </LeftSide>
+            <RightSide>
+              <Switch>
+                <Route path={`${path}/:hashid`}>
+                  <LinkInfo />
+                </Route>
+                <Route path={`${path}`}>Select a link to view its stats.</Route>
+              </Switch>
+            </RightSide>
+          </Content>
+        )}
       </Container>
     </LinksContext.Provider>
   );

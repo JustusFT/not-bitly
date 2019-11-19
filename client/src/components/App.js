@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
 import './App.css';
+import Spin from './common/Spin';
 import Dashboard from './dashboard/Dashboard';
 import Home from './home/Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 export const UserContext = React.createContext(null);
+
+const SpinContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+`;
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -41,6 +49,8 @@ export default function App() {
       </BrowserRouter>
     </UserContext.Provider>
   ) : (
-    'Loading app...'
+    <SpinContainer>
+      <Spin />
+    </SpinContainer>
   );
 }
