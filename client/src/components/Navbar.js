@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import FlexGrow from "./common/FlexGrow";
-import SectionWrapper from "./common/SectionWrapper";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import FlexGrow from './common/FlexGrow';
+import SectionWrapper from './common/SectionWrapper';
 
 const Container = styled.nav`
   display: flex;
@@ -18,6 +18,11 @@ const Logo = styled(Link)`
 `;
 
 const Links = styled.div`
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
   > a {
     margin-left: 16px;
   }

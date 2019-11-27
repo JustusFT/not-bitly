@@ -50,6 +50,7 @@ const LinksContainer = styled.div`
   border-radius: 4px;
   padding: 16px;
   margin-bottom: 32px;
+  color: #111;
 `;
 
 const CopyButtonContainer = styled.div`

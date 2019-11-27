@@ -1,22 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
+import headerBg from '../../assets/headerBg.jpg';
 import FlexGrow from '../common/FlexGrow';
-import Navbar from '../Navbar';
 import SectionWrapper from '../common/SectionWrapper';
+import Navbar from '../Navbar';
 import ShortenerForm from './ShortenerForm';
+
+const ContainerWrapper = styled.div`
+  background-image: url('/${headerBg}');
+`;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const Header = styled.header`
-  height: 200px;
+  padding: 32px 0;
+  color: white;
 `;
 
 const Content = styled.main`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  margin: 32px 0;
 `;
 
 const Footer = styled.footer`
@@ -26,6 +39,11 @@ const Footer = styled.footer`
 `;
 
 const Links = styled.div`
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
   > a {
     margin-left: 16px;
   }
@@ -33,29 +51,31 @@ const Links = styled.div`
 
 function Home() {
   return (
-    <Container>
-      <Navbar />
-      <Content>
+    <ContainerWrapper>
+      <Container>
+        <Navbar />
+        <Content>
+          <SectionWrapper background="rgba(0,0,0,0.5)">
+            <Header>
+              <h1>A URL shortener.</h1>
+              <p>Use the form below to shorten your links.</p>
+              <p>Sign in to keep track of your link's performace</p>
+              <ShortenerForm />
+            </Header>
+          </SectionWrapper>
+        </Content>
         <SectionWrapper>
-          <Header>
-            <h1>A URL shortener.</h1>
-          </Header>
+          <Footer>
+            <div>Made by JustusFT</div>
+            <FlexGrow />
+            <Links>
+              <a href="/">Source</a>
+              <a href="/">Github</a>
+            </Links>
+          </Footer>
         </SectionWrapper>
-        <SectionWrapper background="darkgray">
-          <ShortenerForm />
-        </SectionWrapper>
-      </Content>
-      <SectionWrapper>
-        <Footer>
-          <div>Made by JustusFT</div>
-          <FlexGrow />
-          <Links>
-            <a href="/">Source</a>
-            <a href="/">Github</a>
-          </Links>
-        </Footer>
-      </SectionWrapper>
-    </Container>
+      </Container>
+    </ContainerWrapper>
   );
 }
 
