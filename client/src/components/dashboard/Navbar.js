@@ -23,6 +23,18 @@ const Logo = styled.div`
   font-family: Pacifico, sans-serif;
   font-size: 32px;
   color: #ee6123;
+
+  @media screen and (max-width: 640px) {
+    display: none;
+  }
+`;
+
+const ToggleButton = styled(Button)`
+  display: none;
+
+  @media screen and (max-width: 640px) {
+    display: initial;
+  }
 `;
 
 const Menu = styled.div`
@@ -40,12 +52,13 @@ const EmailText = styled.div`
   overflow: hidden;
 `;
 
-export default function Navbar() {
+export default function Navbar({ onToggle }) {
   const userContext = useContext(UserContext);
 
   return (
     <Wrapper>
       <Container>
+        <ToggleButton onClick={onToggle}>Menu</ToggleButton>
         <Logo>not bitly</Logo>
         <FlexGrow />
         <PopMenu

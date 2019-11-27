@@ -23,11 +23,21 @@ const Content = styled.main`
 `;
 
 const LeftSide = styled.div`
-  width: 400px;
+  width: 320px;
   height: 100%;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #ccc;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  @media screen and (max-width: 640px) {
+    position: absolute;
+    transform: translateX(${props => (props.active ? '0%' : '-100%')});
+  }
+
+  transition: transform 0.4s;
+  background-color: white;
 `;
 
 const RightSide = styled.div`
@@ -62,12 +72,18 @@ const SpinContainer = styled.div`
   align-items: center;
 `;
 
+const UrlInput = styled(Input)`
+  min-width: 0;
+`;
+
 export const LinksContext = React.createContext([]);
 
 export default function Dashboard() {
   const { path } = useRouteMatch();
   const [loading, setLoading] = useState(true);
   const [links, setLinks] = useState([]);
+
+  const [leftSideActive, setLeftSideActive] = useState(false);
 
   useEffect(() => {
     fetch('/api/links')
@@ -81,14 +97,14 @@ export default function Dashboard() {
   return (
     <LinksContext.Provider value={links}>
       <Container>
-        <Navbar />
+        <Navbar onToggle={() => setLeftSideActive(!leftSideActive)} />
         {loading ? (
           <SpinContainer>
             <Spin />
           </SpinContainer>
         ) : (
           <Content>
-            <LeftSide>
+            <LeftSide active={leftSideActive}>
               <Formik
                 initialValues={{
                   url: ''
@@ -109,7 +125,11 @@ export default function Dashboard() {
                 render={({ handleChange }) => (
                   <UrlFormContainer>
                     <UrlForm>
-                      <Input name="url" type="text" onChange={handleChange} />
+                      <UrlInput
+                        name="url"
+                        type="text"
+                        onChange={handleChange}
+                      />
                       <Button type="submit">Shorten</Button>
                     </UrlForm>
                     <ErrorMessage name="url" component={ErrorText} />

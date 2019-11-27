@@ -1,11 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import headerBg from '../assets/headerBg.jpg';
 import Navbar from './Navbar';
+
+const ContainerWrapper = styled.div`
+  background-image: url('/${headerBg}');
+  color: white;
+`;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const ContentWrapper = styled.div`
@@ -22,11 +29,13 @@ const Content = styled.div`
 
 export default function AuthLayout({ children }) {
   return (
-    <Container>
-      <Navbar />
-      <ContentWrapper>
-        <Content>{children}</Content>
-      </ContentWrapper>
-    </Container>
+    <ContainerWrapper>
+      <Container>
+        <Navbar />
+        <ContentWrapper>
+          <Content>{children}</Content>
+        </ContentWrapper>
+      </Container>
+    </ContainerWrapper>
   );
 }
