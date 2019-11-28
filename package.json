@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development nodemon --ignore ./client index.js",
+    "start": "node index.js",
+    "dev": "NODE_ENV=development nodemon --ignore ./client index.js",
+    "build": "webpack --config webpack.config.production.js",
     "knex": "dotenv knex",
     "task": "dotenv node"
   },
@@ -42,6 +44,7 @@
     "nodemon": "^1.19.4",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
     "webpack-dev-middleware": "^3.7.2"
   }
 }

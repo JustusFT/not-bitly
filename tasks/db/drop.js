@@ -6,8 +6,10 @@ const knex = require('knex')({
   }
 });
 
-knex
-  .raw('DROP DATABASE not_bitly_development')
+Promise.all([
+  knex.raw('DROP DATABASE not_bitly_development'),
+  knex.raw('DROP DATABASE not_bitly_production')
+])
   .then(() => {
     console.log('dropped database');
   })

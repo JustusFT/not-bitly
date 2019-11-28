@@ -1,15 +1,15 @@
-const passport = require("passport");
-const Strategy = require("passport-local").Strategy;
-const bcrypt = require("bcrypt");
-const knexConfig = require("./knexfile")[process.env.NODE_ENV];
-const knex = require("knex")(knexConfig);
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
+const knexConfig = require('./knexfile')[process.env.NODE_ENV];
+const knex = require('knex')(knexConfig);
 
 passport.use(
-  new Strategy({ usernameField: "email" }, async (email, password, cb) => {
+  new Strategy({ usernameField: 'email' }, async (email, password, cb) => {
     try {
       const [user] = await knex
-        .select("id", "email", "password")
-        .from("users")
+        .select('id', 'email', 'password')
+        .from('users')
         .where({ email })
         .limit(1);
       // invalid email
@@ -31,8 +31,8 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser(async (id, cb) => {
   try {
     const [user] = await knex
-      .select("*")
-      .from("users")
+      .select('*')
+      .from('users')
       .where({ id })
       .limit(1);
     cb(null, user);
