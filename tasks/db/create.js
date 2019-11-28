@@ -6,8 +6,10 @@ const knex = require('knex')({
   }
 });
 
-knex
-  .raw('CREATE DATABASE not_bitly_development')
+Promise.all([
+  knex.raw('CREATE DATABASE not_bitly_development'),
+  knex.raw('CREATE DATABASE not_bitly_production')
+])
   .then(() => {
     console.log('created database');
   })
