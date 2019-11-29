@@ -69,8 +69,8 @@ function Home() {
             <div>Made by JustusFT</div>
             <FlexGrow />
             <Links>
-              <a href="/">Source</a>
-              <a href="/">Github</a>
+              <a href="https://github.com/JustusFT/not-bitly">Source</a>
+              <a href="https://github.com/JustusFT">Github</a>
             </Links>
           </Footer>
         </SectionWrapper>
