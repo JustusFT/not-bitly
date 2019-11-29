@@ -40,10 +40,8 @@ export default function SignIn() {
           if (response.ok) {
             const json = await response.json();
             userContext.setUser(json.user);
-          } else if (response.status === 400) {
-            formikBag.setErrors({ email: 'Invalid email or password.' });
           } else {
-            // server error
+            formikBag.setErrors({ email: 'Invalid email or password.' });
           }
         }}
       >

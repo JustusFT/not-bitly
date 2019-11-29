@@ -43,16 +43,16 @@ router.post('/sign-up', async (req, res) => {
 
   if (!R.isEmpty(errors)) {
     res.status(422).send({ errors });
+  } else {
+    await knex('users')
+      .insert({
+        email: req.body.email,
+        password: await encrypt(req.body.password)
+      })
+      .returning('email');
+
+    res.redirect('/a/sign-in');
   }
-
-  await knex('users')
-    .insert({
-      email: req.body.email,
-      password: await encrypt(req.body.password)
-    })
-    .returning('email');
-
-  res.redirect('/a/sign-in');
 });
 
 router.post('/sign-in', passport.authenticate('local'), getSelf);
