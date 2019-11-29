@@ -1,9 +1,12 @@
 const knex = require('knex')({
   client: 'postgresql',
-  connection: {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
-  }
+  connection:
+    process.env.NODE_ENV == 'development'
+      ? {
+          user: process.env.DB_USER,
+          password: process.env.DB_PASSWORD
+        }
+      : process.env.DATABASE_URL
 });
 
 Promise.all([
