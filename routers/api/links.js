@@ -1,8 +1,11 @@
 const express = require('express');
 const knexConfig = require('../../knexfile')[process.env.NODE_ENV];
 const knex = require('knex')(knexConfig);
+const Hashids = require('hashids/cjs');
 
 const router = express.Router();
+
+const hashids = new Hashids(process.env.HASHID_SALT);
 
 function isValidUrl(url) {
   return !/^https?:\/\/([a-zA-Z0-9-]+\.)+\w+(\/.*)?$/.test(url);
@@ -80,12 +83,26 @@ router.post('/', async (req, res) => {
   }
 
   try {
+    let links;
+
+    await knex.transaction(async trx => {
+      links = await trx('links')
+        .insert({
+          original_url: req.body.url,
+          user_id: req.user ? req.user.id : null
+        })
+        .returning(['id']);
+      return trx('links')
+        .where({ id: links[0].id })
+        .update({
+          hashid: hashids.encode(links[0].id)
+        });
+    });
+
     const [result] = await knex('links')
-      .insert({
-        original_url: req.body.url,
-        user_id: req.user ? req.user.id : null
-      })
+      .where({ id: links[0].id })
       .returning(visibleColumns);
+
     res.send(result);
   } catch (err) {
     console.error(err);

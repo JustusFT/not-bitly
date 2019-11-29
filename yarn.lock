@@ -2541,6 +2541,11 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+hashids@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/hashids/-/hashids-2.1.0.tgz#96eec6de3081a76dcd839650a6a26e6081e729d3"
+  integrity sha512-N53K2p7TrwKLNHKHcEDH+qpiAgO9JfyPEg8Tfy4fB9AcVhwxlTanJ55HVV9BQJQ6ajM1Wfmtl2wgKuEbcucolw==
+
 history@^4.9.0:
   version "4.10.1"
   resolved "https://registry.yarnpkg.com/history/-/history-4.10.1.tgz#33371a65e3a83b267434e2b3f3b1b4c58aad4cf3"
