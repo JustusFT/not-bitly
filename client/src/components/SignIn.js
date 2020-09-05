@@ -67,7 +67,7 @@ export default function SignIn() {
       </Formik>
       <Spacer />
       <div>
-        <Link to="/sign-up">Create an account</Link>
+        <Link to="/a/sign-up">Create an account</Link>
       </div>
     </AuthLayout>
   );
