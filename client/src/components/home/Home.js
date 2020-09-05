@@ -59,7 +59,7 @@ function Home() {
             <Header>
               <h1>A URL shortener.</h1>
               <p>Use the form below to shorten your links.</p>
-              <p>Sign in to keep track of your link's performace</p>
+              <p><a href="/a/sign-in">Sign in</a> to keep track of your link's performace</p>
               <ShortenerForm />
             </Header>
           </SectionWrapper>
