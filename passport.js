@@ -10,7 +10,7 @@ passport.use(
       const [user] = await knex
         .select('id', 'email', 'password')
         .from('users')
-        .where({ email })
+        .where(knex.raw('LOWER("email") = ?', email.toLowerCase()))
         .limit(1);
       // invalid email
       if (!user || !(await bcrypt.compare(password, user.password))) {
