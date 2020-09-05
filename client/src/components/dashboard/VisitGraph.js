@@ -50,6 +50,7 @@ function generateData(visits) {
 }
 
 const options = {
+  responsive: true,
   legend: {
     display: false
   },

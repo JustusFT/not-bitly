@@ -16,6 +16,7 @@ const Stats = styled.div`
 
   > div {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
   }
 `;
@@ -35,7 +36,7 @@ const SpinContainer = styled.div`
   justify-content: center;
 `;
 
-export default function LinkInfo() {
+export default function LinkInfo({ width }) {
   const { hashid } = useParams();
   const [loading, setLoading] = useState(true);
   const [visits, setVisits] = useState([]);
@@ -83,7 +84,7 @@ export default function LinkInfo() {
       <Spacer />
       <Spacer />
       <div>
-        <VisitGraph visits={visits} />
+        <VisitGraph width={width} visits={visits} />
       </div>
     </div>
   );
