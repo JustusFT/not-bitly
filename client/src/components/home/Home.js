@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import headerBg from '../../assets/headerBg.jpg';
 import FlexGrow from '../common/FlexGrow';
@@ -59,7 +60,7 @@ function Home() {
             <Header>
               <h1>A URL shortener.</h1>
               <p>Use the form below to shorten your links.</p>
-              <p><a href="/a/sign-in">Sign in</a> to keep track of your link's performace</p>
+              <p><Link to="/a/sign-in">Sign in</Link> to keep track of your link's performace</p>
               <ShortenerForm />
             </Header>
           </SectionWrapper>
