@@ -17,7 +17,7 @@ const Container = styled.div`
   flex-direction: column;
   min-height: 100vh;
   color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
 `;
 
 const Header = styled.header`
@@ -41,7 +41,6 @@ const Footer = styled.footer`
 `;
 
 const Links = styled.div`
-  background-color: rgba(0, 0, 0, 0.5);
   height: 100%;
   display: flex;
   align-items: center;
@@ -57,7 +56,7 @@ function Home() {
       <Container>
         <Navbar />
         <Content>
-          <SectionWrapper background="rgba(0,0,0,0.5)">
+          <SectionWrapper>
             <Header>
               <h1>A URL shortener.</h1>
               <p>Use the form below to shorten your links.</p>

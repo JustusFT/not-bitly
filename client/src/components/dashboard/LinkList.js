@@ -79,7 +79,7 @@ export default function LinkList({ links }) {
             {links
               .sort((a, b) => a[sort] < b[sort])
               .map(link => (
-                <LinkItemWrapper>
+                <LinkItemWrapper key={link.hashid}>
                   <div>
                     <LinkItem>
                       <Link to={`${url}/${link.hashid}`}>

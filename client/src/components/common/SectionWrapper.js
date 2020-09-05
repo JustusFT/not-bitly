@@ -3,7 +3,6 @@ import styled from "styled-components";
 const SectionWrapper = styled.div`
   display: flex;
   justify-content: center;
-  background: ${props => props.background || "none"};
   padding: 0 16px;
 
   > * {

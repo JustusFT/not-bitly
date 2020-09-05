@@ -18,7 +18,6 @@ const Logo = styled(Link)`
 `;
 
 const Links = styled.div`
-  background-color: rgba(0, 0, 0, 0.5);
   height: 100%;
   display: flex;
   align-items: center;
