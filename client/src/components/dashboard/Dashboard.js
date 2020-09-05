@@ -24,7 +24,6 @@ const Content = styled.main`
 
 const LeftSide = styled.div`
   width: 320px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #ccc;
