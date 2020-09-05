@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 
 const ContainerWrapper = styled.div`
   background-image: url('/${headerBg}');
+  background-size: cover;
   color: white;
 `;
 

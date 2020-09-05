@@ -9,6 +9,7 @@ import ShortenerForm from './ShortenerForm';
 
 const ContainerWrapper = styled.div`
   background-image: url('/${headerBg}');
+  background-size: cover;
 `;
 
 const Container = styled.div`
