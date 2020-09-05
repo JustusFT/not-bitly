@@ -67,11 +67,11 @@ function Home() {
         </Content>
         <SectionWrapper>
           <Footer>
-            <div>Made by JustusFT</div>
+            <div>Made by <a href="https://justusft.github.io/" target="_blank">Justus Tumacder</a></div>
             <FlexGrow />
             <Links>
-              <a href="https://github.com/JustusFT/not-bitly">Source</a>
-              <a href="https://github.com/JustusFT">Github</a>
+              <a href="https://github.com/JustusFT/not-bitly" target="_blank">Source</a>
+              <a href="https://github.com/JustusFT" target="_blank">Github</a>
             </Links>
           </Footer>
         </SectionWrapper>
