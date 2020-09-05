@@ -28,20 +28,37 @@ Requires:
 yarn
 ```
 
-3. Create the development database
+3. Setup development enviroment variables
+
+Create a .env in the project root folder, and fill it with the following:
+
+```
+NODE_ENV=development
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=postgres
+SESSION_SECRET=<random string>
+HASHID_SALT=<random string>
+```
+
+Change `postgres` to your development database details if yours is different.
+
+4. Create the development database
 
 ```
 yarn task tasks/db/create.js
 ```
 
-4. Run the db migrations
+5. Run the db migrations
 
 ```
 yarn knex migrate:latest
 ```
 
-5. Run the development server
+6. Run the development server
 
 ```
 yarn dev
 ```
+
+The development server should now be running on `localhost:3000`
