@@ -24,6 +24,19 @@ const LinkForm = styled(Form)`
     padding: 0 32px;
     margin-left: 16px;
   }
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+
+    > input {
+      flex: initial;
+      margin-bottom: 16px;
+    }
+
+    > button {
+      margin-left: 0;
+    }
+  }
 `;
 
 const LinkItemWrapper = styled.div`
