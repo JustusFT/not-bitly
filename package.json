@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "dev": "dotenv nodemon --ignore ./client index.js",
+    "dev": "nodemon .",
     "build": "webpack --config webpack.config.production.js",
     "knex": "dotenv knex",
     "task": "dotenv node"
