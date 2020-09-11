@@ -114,7 +114,7 @@ export default function ShortenerForm() {
           submitUrl(values.url, formikBag);
         }}
       >
-        {({ handleChange }) => (
+        {({ handleChange, submitForm }) => (
           <FormContainer>
             <LinkForm>
               <Input
@@ -124,7 +124,7 @@ export default function ShortenerForm() {
                 placeholder="Shorten your link"
                 onChange={handleChange}
               />
-              <Button large color="primary" type="submit">
+              <Button large color="primary" onClick={() => submitForm()}>
                 Shorten
               </Button>
             </LinkForm>

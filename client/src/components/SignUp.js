@@ -47,7 +47,7 @@ export default function SignUp() {
           }
         }}
       >
-        {({ getFieldProps }) => (
+        {({ getFieldProps, submitForm }) => (
           <SignUpForm>
             <FormItem label="Email address">
               <Input
@@ -76,7 +76,7 @@ export default function SignUp() {
               />
             </FormItem>
             <ErrorMessage name="passwordConfirmation" component={ErrorText} />
-            <Button block color="primary" type="submit">
+            <Button block onClick={() => submitForm()} color="primary">
               Sign up
             </Button>
           </SignUpForm>
