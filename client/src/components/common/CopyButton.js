@@ -14,6 +14,16 @@ const Container = styled(Button)`
       ? `
         color: white;
         background-color: #649949;
+
+        &:hover {
+          color: white;
+          background-color: #649949;
+        }
+
+        &:active {
+          color: white;
+          background-color: #649949;
+        }
       `
       : ``}
 `;

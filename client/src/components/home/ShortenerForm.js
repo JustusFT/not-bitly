@@ -6,7 +6,6 @@ import getShortUrl from '../../util/getShortUrl';
 import Button from '../common/Button';
 import CopyButton from '../common/CopyButton';
 import ErrorText from '../common/ErrorText';
-import FlexGrow from '../common/FlexGrow';
 import Input from '../common/Input';
 
 const FormContainer = styled.div`
@@ -51,11 +50,17 @@ const LinkItemWrapper = styled.div`
 const LinkItem = styled.div`
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
-const OriginalUrl = styled.div`
+const UrlText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
 `;
 
 const LinksContainer = styled.div`
@@ -68,7 +73,19 @@ const LinksContainer = styled.div`
 
 const CopyButtonContainer = styled.div`
   margin-left: 16px;
+
+  @media screen and (max-width: 480px) {
+    margin-left: 0px;
+  }
 `;
+
+const LinkSpacer = styled.div`
+  flex: 1 1 16px;
+
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
+`
 
 export default function ShortenerForm() {
   const [links, setLinks] = useState([]);
@@ -120,9 +137,9 @@ export default function ShortenerForm() {
           {links.map(link => (
             <LinkItemWrapper key={link.hashid}>
               <LinkItem>
-                <OriginalUrl>{link.original_url}</OriginalUrl>
-                <FlexGrow style={{ minWidth: 16 }} />
-                <div>{getShortUrl(link.hashid)}</div>
+                <UrlText>{link.original_url}</UrlText>
+                <LinkSpacer />
+                <UrlText>{getShortUrl(link.hashid)}</UrlText>
                 <CopyButtonContainer>
                   <CopyButton text={getShortUrl(link.hashid)} />
                 </CopyButtonContainer>
