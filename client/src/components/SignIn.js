@@ -45,7 +45,7 @@ export default function SignIn() {
           }
         }}
       >
-        {({ handleChange }) => (
+        {({ handleChange, submitForm }) => (
           <SignInForm>
             <FormItem label="Email address">
               <Input block type="text" name="email" onChange={handleChange} />
@@ -59,7 +59,7 @@ export default function SignIn() {
               />
             </FormItem>
             <ErrorMessage name="email" component={ErrorText} />
-            <Button block color="primary" type="submit">
+            <Button block onClick={() => submitForm()} color="primary">
               Sign in
             </Button>
           </SignInForm>

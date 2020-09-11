@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { UserContext } from '../App';
 import Button from '../common/Button';
@@ -54,6 +54,7 @@ const EmailText = styled.div`
 
 export default function Navbar({ onToggle }) {
   const userContext = useContext(UserContext);
+  const formRef = useRef(null);
 
   return (
     <Wrapper>
@@ -66,8 +67,8 @@ export default function Navbar({ onToggle }) {
             <Menu>
               <EmailText>{userContext.user.email}</EmailText>
               <Spacer />
-              <form method="POST" action="/api/auth/sign-out">
-                <Button block type="submit">
+              <form ref={formRef} method="POST" action="/api/auth/sign-out">
+                <Button block onClick={() => formRef.current.submit()}>
                   Sign out
                 </Button>
               </form>

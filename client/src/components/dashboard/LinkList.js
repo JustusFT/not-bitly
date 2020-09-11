@@ -77,7 +77,15 @@ export default function LinkList({ links, onVisit }) {
         <LinksWrapper2>
           <Links>
             {links
-              .sort((a, b) => a[sort] < b[sort])
+              .sort((a, b) => {
+                if (a[sort] > b[sort]) {
+                  return -1;
+                } else if (a[sort] < b[sort]) {
+                  return 1;
+                } else {
+                  return 0;
+                }
+              })
               .map(link => (
                 <LinkItemWrapper key={link.hashid}>
                   <div>
