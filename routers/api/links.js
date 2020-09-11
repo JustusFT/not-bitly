@@ -116,9 +116,14 @@ router.delete(
   forbidNonOwnersOfLink,
   async (req, res) => {
     try {
-      await knex('links')
-        .where({ id: req.link.id })
-        .delete();
+      await knex.transaction(async trx => {
+        await trx('visits')
+          .where({ link_id: req.link.id })
+          .delete();
+        await trx('links')
+          .where({ id: req.link.id })
+          .delete();
+      });
       res.sendStatus(200);
     } catch (err) {
       console.error(err);
