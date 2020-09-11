@@ -1,6 +1,10 @@
+import React from 'react';
 import styled from 'styled-components';
+import Spin from './Spin';
 
-const Button = styled.button`
+const ButtonElement = styled.span`
+  align-items: center;
+  justify-content: center;
   padding: 8px 16px;
   box-sizing: border-box;
   border: 1px solid #cccccc;
@@ -9,8 +13,9 @@ const Button = styled.button`
   opacity: ${props => (props.disabled ? '0.5' : '1')};
   transition: background-color 0.1s;
   color: #222222;
+  user-select: none;
 
-  ${props => (props.block ? 'display: block; width: 100%;' : '')};
+  ${props => (props.block ? 'display: flex; width: 100%;' : 'display: inline-flex;')};
 
   ${props => (props.large ? 'height: 48px;' : '')}
 
@@ -58,4 +63,20 @@ const Button = styled.button`
   }};
 `;
 
-export default Button;
+const SpinSpacer = styled.div`
+  width: 4px;
+`;
+
+export default function Button({ loading, children, ...props }) {
+  return (
+    <ButtonElement {...props} role="button">
+      {loading && (
+        <>
+          <Spin size={16} />
+          <SpinSpacer />
+        </>
+      )}
+      {children}
+    </ButtonElement>
+  )
+};

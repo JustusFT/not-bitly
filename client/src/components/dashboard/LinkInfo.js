@@ -55,6 +55,7 @@ function DeleteButton({ id }) {
     const response = await linksApi.destroy(id);
     if (response.ok) {
       setActive(false);
+      await new Promise(res => { setTimeout(res, 0.3) });
       history.push("/a/dashboard");
       linksContext.setLinks(R.reject(x => x.hashid == id, linksContext.links))
     } else {

@@ -1,9 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
 import './Spin.css';
 
-export default function Spin() {
+const Container = styled.div`
+  width: ${props => props.size || 40}px;
+  height: ${props => props.size || 40}px;
+`
+
+export default function Spin({ size }) {
   return (
-    <div className="sk-circle">
+    <Container size={size} className="sk-circle">
       <div className="sk-circle1 sk-child"></div>
       <div className="sk-circle2 sk-child"></div>
       <div className="sk-circle3 sk-child"></div>
@@ -16,6 +22,6 @@ export default function Spin() {
       <div className="sk-circle10 sk-child"></div>
       <div className="sk-circle11 sk-child"></div>
       <div className="sk-circle12 sk-child"></div>
-    </div>
+    </Container>
   );
 }

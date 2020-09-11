@@ -128,14 +128,16 @@ export default function Dashboard() {
                         const json = await response.json();
                         setLinks([{ ...json, visits: 0 }, ...links]);
                         history.push(`/a/dashboard/${json.hashid}`);
+                        setLeftSideActive(false);
                       } else if (response.status === 422) {
                         const json = await response.json();
                         formikBag.setErrors(json);
                       } else {
                         // server error
+                        alert("A server error occurred!\nFailed to create link.");
                       }
                     }}
-                    render={({ handleChange }) => (
+                    render={({ handleChange, isSubmitting, submitForm }) => (
                       <UrlFormContainer>
                         <UrlForm>
                           <UrlInput
@@ -143,14 +145,14 @@ export default function Dashboard() {
                             type="text"
                             onChange={handleChange}
                           />
-                          <Button type="submit">Shorten</Button>
+                          <Button onClick={() => submitForm()} disabled={isSubmitting} loading={isSubmitting}>Shorten</Button>
                         </UrlForm>
                         <ErrorMessage name="url" component={ErrorText} />
                       </UrlFormContainer>
                     )}
                   />
                   <LinkListContainer>
-                    <LinkList links={links} />
+                    <LinkList links={links} onVisit={() => setLeftSideActive(false)} />
                   </LinkListContainer>
                 </LeftSide>
               </LeftSideWrapper>

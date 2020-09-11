@@ -59,7 +59,7 @@ const SorterWrapper = styled.div`
   border-bottom: 1px solid #ccc;
 `;
 
-export default function LinkList({ links }) {
+export default function LinkList({ links, onVisit }) {
   const { url } = useRouteMatch();
   const [sort, setSort] = useState('visits');
 
@@ -82,7 +82,7 @@ export default function LinkList({ links }) {
                 <LinkItemWrapper key={link.hashid}>
                   <div>
                     <LinkItem>
-                      <Link to={`${url}/${link.hashid}`}>
+                      <Link to={`${url}/${link.hashid}`} onClick={() => onVisit()}>
                         {link.original_url}
                       </Link>
                       <FlexGrow />
