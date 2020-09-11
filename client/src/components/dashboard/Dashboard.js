@@ -1,6 +1,6 @@
 import { ErrorMessage, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import linksApi from '../../util/api/linksApi';
 import Button from '../common/Button';
@@ -89,6 +89,7 @@ const UrlInput = styled(Input)`
 export const LinksContext = React.createContext([]);
 
 export default function Dashboard() {
+  const history = useHistory();
   const { path } = useRouteMatch();
   const [loading, setLoading] = useState(true);
   const [links, setLinks] = useState([]);
@@ -105,7 +106,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <LinksContext.Provider value={links}>
+    <LinksContext.Provider value={{links, setLinks}}>
       <Container>
         <Navbar onToggle={() => setLeftSideActive(!leftSideActive)} />
         {loading ? (
@@ -126,6 +127,7 @@ export default function Dashboard() {
                       if (response.ok) {
                         const json = await response.json();
                         setLinks([{ ...json, visits: 0 }, ...links]);
+                        history.push(`/a/dashboard/${json.hashid}`);
                       } else if (response.status === 422) {
                         const json = await response.json();
                         formikBag.setErrors(json);

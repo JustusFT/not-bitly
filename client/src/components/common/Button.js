@@ -6,6 +6,7 @@ const Button = styled.button`
   border: 1px solid #cccccc;
   border-radius: 4px;
   background-color: white;
+  opacity: ${props => (props.disabled ? '0.5' : '1')};
 
   ${props => (props.block ? 'display: block; width: 100%;' : '')};
 
@@ -16,6 +17,12 @@ const Button = styled.button`
       case 'primary':
         return `
           background-color: hsla(215,100%,62%,1);
+          color: white;
+          border: none;
+        `;
+      case 'danger':
+        return `
+          background-color: hsla(5,80%,50%,1);
           color: white;
           border: none;
         `;

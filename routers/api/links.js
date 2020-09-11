@@ -110,4 +110,21 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.delete(
+  '/:hashid', 
+  forbidUnauthenticated,
+  forbidNonOwnersOfLink,
+  async (req, res) => {
+    try {
+      await knex('links')
+        .where({ id: req.link.id })
+        .delete();
+      res.sendStatus(200);
+    } catch (err) {
+      console.error(err);
+      res.sendStatus(500);
+    }
+  }
+);
+
 module.exports = router;

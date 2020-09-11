@@ -13,6 +13,13 @@ function create(url) {
   });
 }
 
+function destroy(id) {
+  return fetch(`/api/links/${id}`, {
+    method: 'DELETE'
+  });
+}
+
 export default {
-  create
+  create,
+  destroy
 };

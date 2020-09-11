@@ -28,7 +28,7 @@ router.get("/:id", async (req, res) => {
 
     res.redirect(link.original_url);
   } else {
-    res.sendStatus(404);
+    res.redirect("/a/not_found");
   }
 });
 

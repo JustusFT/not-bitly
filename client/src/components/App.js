@@ -5,6 +5,7 @@ import './App.css';
 import Spin from './common/Spin';
 import Dashboard from './dashboard/Dashboard';
 import Home from './home/Home';
+import NotFoundPage from './NotFoundPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
@@ -35,6 +36,9 @@ export default function App() {
         <Switch>
           <Route exact path="/">
             {user ? <Redirect to="/a/dashboard" /> : <Home />}
+          </Route>
+          <Route path="/a/not_found">
+            <NotFoundPage />
           </Route>
           <Route path="/a/dashboard">
             {!user ? <Redirect to="/" /> : <Dashboard />}
