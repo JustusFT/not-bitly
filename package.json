@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
-    "chart.js": "^2.9.2",
+    "chart.js": "^2.9.4",
     "core-js": "3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
