@@ -19,7 +19,7 @@
     "express-session": "^1.17.0",
     "formik": "^2.0.4",
     "hashids": "^2.1.0",
-    "knex": "^0.95.15",
+    "knex": "^2.4.0",
     "moment": "^2.24.0",
     "normalize.css": "^8.0.1",
     "passport": "^0.4.0",
